@@ -76,11 +76,6 @@ const MainApp: React.FC<Props> = props => {
                 dispatch(updateUserState(userObj))
                 dispatch(toggleLoggedIn()); //true if user exists
             }
-            else {
-                // setTimeout(() => {
-                //     dispatch(toggleReady());
-                // }, 300);
-            }
           } catch (e) {
             console.log(e);
           } finally {

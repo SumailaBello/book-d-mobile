@@ -4,8 +4,6 @@ import { Theme } from './types';
 const {height, width} = Dimensions.get('window');
 /** base url for API service */
 const baseUrl = 'https://bookd.onrender.com';
-const privacyPolicy = "https://www.optima.africa/privacy-policy";
-const termsOfUse = "https://www.optima.africa/terms-of-service";
 
 // export const baseURL = '';
 
@@ -149,8 +147,6 @@ const CONSTANTS =  {
   month,
   theme,
   dateSortList,
-  privacyPolicy,
-  termsOfUse,
   baseUrl
 };
 

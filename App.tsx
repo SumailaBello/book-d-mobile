@@ -1,5 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
-import { View, useColorScheme, Platform, LogBox } from 'react-native';
+import { View, useColorScheme, LogBox } from 'react-native';
 LogBox.ignoreLogs([
   'AxiosError'
 ]);
