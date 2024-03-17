@@ -52,7 +52,7 @@ const Login: FC<Screen> = ({navigation}) => {
     
     return (
         <Container style={{backgroundColor: theme.background,}}>
-            <ScrollView style={{minHeight: CONSTANTS.DEVICE_HEIGHT}} contentContainerStyle={{minHeight: CONSTANTS.DEVICE_HEIGHT}}>
+            <ScrollView style={{minHeight: CONSTANTS.DEVICE_HEIGHT}} contentContainerStyle={{minHeight: CONSTANTS.DEVICE_HEIGHT, paddingBottom: scale(10)}}>
                 <LoginTitle />
                 <View style={{flex: 4, paddingHorizontal: scale(20)}}>
                     <View style={{alignItems: 'center', marginBottom: scale(20)}}>

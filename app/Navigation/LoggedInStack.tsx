@@ -34,22 +34,7 @@ const LoggedInStack = () => {
         <Stack.Navigator initialRouteName = "HomeTabs" screenOptions={({ navigation }: any) => ({
             // ...TransitionPresets.FadeFromBottomAndroid,
             ...Transition,
-            // headerTitleAlign: "center",
-            // headerTitleStyle: {
-            //     fontFamily: "CircularStd-Bold",
-            //     paddingBottom: IS_IOS ? scale(30) : undefined,
-            //     fontSize: fontScale(18)
-            //     // marginTop: "auto"
-            // },
-            // headerStyle: {
-            //     elevation: 0,
-            //     height: IS_IOS ? scale(80) : undefined,
-            // },
-            // headerLeftContainerStyle: {
-            //     paddingBottom: scale(10),
-            //     paddingLeft: IS_IOS ? scale(10) : undefined,
-            // },
-            headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
+            headerLeft: ()=> <IconButton style={{paddingBottom: scale(5)}} onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
             // headerTitleContainerStyle: {paddingTop: scale(20)}
             headerShadowVisible: false,
             headerStatusBarHeight: 0,
@@ -65,7 +50,8 @@ const LoggedInStack = () => {
             },
             headerTitleContainerStyle: {
                 justifyContent: "flex-end",
-                padding: scale(10)
+                padding: scale(10),
+                paddingBottom: scale(5)
             },
             })}
         >

@@ -18,10 +18,11 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { AlertConfig } from '../utils/types';
 import { setToken } from '../utils/api';
-import * as SecureStore from 'expo-secure-store';
 import Constants from 'expo-constants';
 import { DefaultTheme } from '@react-navigation/native';
 import * as Linking from "expo-linking";
+import scale from '../utils/scale';
+import CONSTANTS from '../utils/constants';
 // import SideMenu from '../components/SideMenu/SideMenu';
 
 const BottomTabs = createBottomTabNavigator();
@@ -32,11 +33,11 @@ interface Props {
 
 const MainApp: React.FC<Props> = props => {
     console.log(props);
-    // const [isAppReady, setReady]: any = useState(false);
-    // const [isLoggedIn, setLoggedIn]: any = useState(false);
+    //GLOBAL STATE
     const {theme} = useSelector((state: RootState) => state.appSetting);
     const {isLoggedIn, isAppReady} = useSelector((state: RootState) => state.appSetting);
     const dispatch = useDispatch();
+    const {IS_IOS} = CONSTANTS;
 
     //nav theme
     const NavTheme: Theme =  {
@@ -146,6 +147,7 @@ const MainApp: React.FC<Props> = props => {
 
     return (
         <>
+            { IS_IOS && <View style={{marginTop: scale(20)}} />}
             {isAppReady ? (
                 <>
                     {isLoggedIn ? (

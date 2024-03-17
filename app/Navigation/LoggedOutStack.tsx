@@ -20,23 +20,22 @@ const LoggedOutStack = () => {
     const {IS_ANDROID, IS_IOS} = CONSTANTS;
     const Transition = TransitionPresets.SlideFromRightIOS
     const {theme} = useSelector((state: RootState) => state.appSetting);
-    StatusBar.setTranslucent(false)
-    // IS_ANDROID ? StatusBar.setBackgroundColor('transparent', true) : null;
-    // IS_ANDROID ? StatusBar.setTranslucent(true) : null;
-    // IS_ANDROID ? StatusBar.setBarStyle('light-content') : null;
+    IS_ANDROID ? StatusBar.setTranslucent(false) : null
+
     return (
         <>
             <Stack.Navigator initialRouteName = "Onboarding" screenOptions={({ navigation }) => ({
                 ...Transition,
                 headerStyle: {
                     backgroundColor: theme.light,
+                    // height: scale(50)
+                    // paddingTop: scale(10)
                 },
                 // presentation: 'transparentModal', 
                 contentStyle: { 
                     backgroundColor: 'white',
                 },
-                // headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="arrow-left" size={scale(24)} />} />,
-                headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
+                headerLeft: ()=> <IconButton style={{paddingBottom: scale(5)}} onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
                 headerShadowVisible: false,
                 headerStatusBarHeight: 0,
                 headerLeftContainerStyle: {
