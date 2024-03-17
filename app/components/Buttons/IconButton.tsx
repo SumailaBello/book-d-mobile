@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-// import {colors} from '../../Styles/Styles';
-// import CONSTANTS from '../../utils/constants';
 
 interface buttonProps {
     // title?: string,

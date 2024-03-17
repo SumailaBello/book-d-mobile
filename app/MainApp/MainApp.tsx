@@ -21,6 +21,7 @@ import { setToken } from '../utils/api';
 import * as SecureStore from 'expo-secure-store';
 import Constants from 'expo-constants';
 import { DefaultTheme } from '@react-navigation/native';
+import * as Linking from "expo-linking";
 // import SideMenu from '../components/SideMenu/SideMenu';
 
 const BottomTabs = createBottomTabNavigator();
@@ -37,6 +38,7 @@ const MainApp: React.FC<Props> = props => {
     const {isLoggedIn, isAppReady} = useSelector((state: RootState) => state.appSetting);
     const dispatch = useDispatch();
 
+    //nav theme
     const NavTheme: Theme =  {
         ...DefaultTheme,
         colors: {
@@ -46,6 +48,17 @@ const MainApp: React.FC<Props> = props => {
             
         },
     }
+
+    const prefix = Linking.createURL("/");
+    console.log(prefix);
+    const linking = {
+        prefixes: [prefix],
+        config: {
+          screens: {
+            AddInvitedUser: "Calendar",
+          },
+        },
+    };
 
     useEffect(() => {
         const prepare = async ()=> {

@@ -41,7 +41,7 @@ const More: FC<Screen> = ({navigation}) => {
           onPress={()=> navigation.navigate('Profile')}
           textColor={theme.primary.main} clickable 
         />
-        <ToggleItem title='Dark Mode' textColor={theme.primary.main} />
+        {/* <ToggleItem title='Dark Mode' textColor={theme.primary.main} /> */}
         <View style={{marginTop: 'auto'}}>
           <Button title='Logout'
             onPress={handleLogout}
