@@ -1,10 +1,9 @@
 import React, { Component, useRef, Ref, useState, useEffect } from 'react';
-import { View, StyleSheet, KeyboardType, TextInput, Pressable } from 'react-native';
+import { View, StyleSheet, KeyboardType, TextInput, Pressable, ViewStyle } from 'react-native';
 // import {colors} from '../../Styles/Styles';
 import scale from '../../utils/scale';
 import { RegularText, BoldText} from '../Typography/Typography';
 import CONSTANTS from '../../utils/constants';
-import { StyleProps } from 'react-native-reanimated';
 import * as Animatable from 'react-native-animatable';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -36,7 +35,7 @@ interface Props {
     keyboardType?: KeyboardType,
     secure?: boolean,
     /**parent style object */
-    parentStyle?: StyleProps,
+    parentStyle?: ViewStyle,
     value?: any;
     numberOfLines?: number,
     multiline?: boolean;
@@ -118,7 +117,7 @@ const Input: React.FC<Props> = (props) => {
     }
 
     return (
-        <>
+        <View>
             <Pressable onPress = {()=> inputRef.current.focus()} style={[styles.defaultItemStyle, {borderColor: props.error ? theme.danger.main : focused ? theme.primary.main : theme.neutral[100], backgroundColor: theme.neutral[100]}]}>
             {props.label ? (
             // animated label for material design effect
@@ -140,7 +139,7 @@ const Input: React.FC<Props> = (props) => {
                 ) : (null)}
                 <TextInput ref={inputRef} maxLength={props.maxLength ? props.maxLength : undefined} onFocus={handleFocus} 
                     onBlur={handleBlur} 
-                    style={{color: theme.neutral[300], height: '100%', paddingLeft: scale(5), marginBottom: scale(-50), paddingTop: scale(15)}} editable = {!props.disabled} defaultValue ={props.defaultValue} 
+                    style={{color: theme.neutral.main, height: '100%', width: '100%', paddingLeft: scale(5), marginBottom: scale(-50), paddingTop: scale(15)}} editable = {!props.disabled} defaultValue ={props.defaultValue} 
                     onChangeText={handleChange} 
                     onChange={props.onChange}
                     keyboardType={props.keyboardType} 
@@ -150,11 +149,11 @@ const Input: React.FC<Props> = (props) => {
                 />
             </Pressable>
             {props.error ? (
-                <View style={{marginTop: scale(-10), marginBottom: scale(5)}}>
-                    <RegularText size={12} title={ props.errorMessage ??  props.label + " is invalid"} color={theme.danger.main} />
+                <View style={{position: 'absolute', bottom: scale(5)}}>
+                    <RegularText size={12} lines={1} title={ props.errorMessage ??  props.label + " is invalid"} color={theme.danger.main} />
                 </View>
             ) : null}
-        </>
+        </View>
     );
 }
 
@@ -165,9 +164,9 @@ const styles = StyleSheet.create({
         paddingVertical: scale(5),
         // backgroundColor: 'transparent',
         borderWidth: 1.5,
-        marginBottom: scale(10),
+        marginBottom: scale(20),
         height: scale(50),
-        flexDirection: 'row'
+        flexDirection: 'row',
         // borderColor: theme.light.medium,
     },
     errorItemStyle: {

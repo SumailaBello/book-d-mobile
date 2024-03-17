@@ -9,8 +9,8 @@ interface Props {
     /** whether skeleton loader will be animated or not. It will animate by default */
     animated?: boolean;
     style?: ViewStyle;
-    height?: number | string;
-    width?: number | string;
+    height?: number;
+    width?: number;
 }
 
 const SkeletonLoader: React.FC<Props> = (props) => {
@@ -36,7 +36,7 @@ const SkeletonLoader: React.FC<Props> = (props) => {
     }
     return (
         // <Animated.View style={[props.style ? props.style : styles.view, {opacity: opacity, backgroundColor: colors.medium}]} />
-        <Animated.View style={[props.style, {opacity: opacity, backgroundColor: theme.neutral[500], 
+        <Animated.View style={[props.style, {opacity: opacity, backgroundColor: theme.neutral[300], 
             height: props.height ?? scale(10), width: props.width ?? "100%", borderRadius: scale(2)}]} />
     )
 }

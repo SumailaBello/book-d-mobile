@@ -11,7 +11,7 @@ const initialState: ModalSettings = {
     loaderTitle: "Please wait",
     loaderSubtitle: "process will be completed in a jify",
   },
-  isLoading: false,
+  loading: false,
   alert: {
     title: 'Alert',
     message: '',
@@ -32,7 +32,7 @@ export const modalSlice = createSlice({
   reducers: {
     /**toggles application loading state */
     toggleLoading: (state, action: PayloadAction<LoaderConfig | undefined>) => {
-      state.isLoading = !state.isLoading;
+      state.loading = !state.loading;
       state.loaderConfig.loaderTitle = action?.payload?.loaderTitle ?? "Please wait";
       state.loaderConfig.loaderSubtitle = action?.payload?.loaderSubtitle ?? "process will be completed in a jiffy";
     },

@@ -14,7 +14,7 @@ interface Props {
 
 export const CustomLoader: React.FC<Props> = ()=> {
     const {theme} = useSelector((state: RootState) => state.appSetting);
-    const {isLoading, loaderConfig} = useSelector((state: RootState) => state.modalSlice);
+    const {loading, loaderConfig} = useSelector((state: RootState) => state.modalSlice);
     
     const wiggle: any = {
         0: {
@@ -38,7 +38,7 @@ export const CustomLoader: React.FC<Props> = ()=> {
         <Modal
             animationType="fade"
             transparent={true}
-            visible={isLoading}
+            visible={loading}
             onRequestClose={() => {
                 // this.props.store.setModalVisible(false);
                 // props.store.resetModal()
@@ -47,7 +47,7 @@ export const CustomLoader: React.FC<Props> = ()=> {
             
         >
             {/* <StatusBar backgroundColor='rgba(0, 0, 0, 0.3)' barStyle="dark-content" /> */}
-            <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'rgba(255, 255, 255, 0.9)', alignItems: 'center'}}>
+            <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'rgba(255, 255, 255, 0.7)', alignItems: 'center'}}>
                 <View style={[styles.spinnerContainer, {backgroundColor: theme.light}]} >
                     <Animatable.View animation={wiggle} duration={2000} iterationCount={"infinite"}
                         style={{flexDirection: "row"}}>
@@ -57,10 +57,10 @@ export const CustomLoader: React.FC<Props> = ()=> {
                     </Animatable.View>
                 </View>
                 <View style={{marginTop: scale(10)}}>
-                    <BoldText title={loaderConfig.loaderTitle ?? "Please wait..."} color={theme.neutral[900]} size={16} />
+                    <BoldText title={loaderConfig.loaderTitle ?? "Please wait..."} color={theme.neutral.main} size={16} />
                 </View>
                 <View style={{marginTop: scale(10)}}>
-                    <RegularText title={loaderConfig.loaderSubtitle} size={14} color={theme.neutral[700]} />
+                    <RegularText title={loaderConfig.loaderSubtitle} size={14} color={theme.neutral.main} />
                 </View>
             </View>
         </Modal>

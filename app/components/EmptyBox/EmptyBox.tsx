@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React, { FC, ReactNode } from 'react';
-import { RegularText } from '../Typography/Typography';
+import { MediumText } from '../Typography/Typography';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import scale from '../../utils/scale';
@@ -16,10 +16,10 @@ const EmptyBox: FC<Props> = ({icon, title}) => {
         <View style={styles.container}>
             {icon}
             <View style={{marginTop: scale(10)}} />
-            <RegularText 
+            <MediumText 
                 title={title ?? ""}
-                color={theme.neutral.main}
-                size={12}
+                color={theme.neutral[300]}
+                size={14}
             />
         </View>
     )

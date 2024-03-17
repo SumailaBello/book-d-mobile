@@ -6,19 +6,13 @@ import { RegularText, MediumText, BoldText} from '../Typography/Typography';
 import { Button } from '../Buttons/Button';
 // import { observer, inject } from "mobx-react";
 import Input from '../Inputs/TextInput';
-// import Ionicons from '@expo/vector-icons/Ionicons';
 // import { FlatList } from 'react-native-gesture-handler';
 import CONSTANTS from '../../utils/constants';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import scale from '../../utils/scale';
-import DropDown from '../../../assets/icons/drop-down.svg';
 import IconButton from '../Buttons/IconButton';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import SearchIcon from '../../../assets/icons/search-light.svg';
-import SearchNeutralIcon from '../../../assets/icons/search-neutral.svg';
-import BackIcon from '../../../assets/icons/arrow-left.svg';
-import CloseIcon from '../../../assets/icons/close-danger.svg';
 import { TextInput } from 'react-native-gesture-handler';
 import ListItem from '../ListItem/ListItem';
 import { FlashList } from "@shopify/flash-list";
@@ -103,7 +97,7 @@ const SelectSheet = (props: Props)=> {
         return (
             <View style={{marginTop: scale(10)}}>
                 <ListItem title={props.listTitleKey ? item[props.listTitleKey] : item} 
-                    checked={ index === selectedIndex ? true : false} 
+                    // checked={ index === selectedIndex ? true : false} 
                     onPress={()=> handleSelect(item, index)}
                     icon={item.icon || item.image ? 
                         <Image source={item.icon ?? item.image} style={{height: scale(32), width: scale(32)}} /> 
@@ -128,7 +122,8 @@ const SelectSheet = (props: Props)=> {
                     <RegularText title={props.title} color={theme.neutral[300]} size={14} />  
                 )}
                 <View style={{marginLeft: 'auto'}}>
-                    <DropDown height={scale(20)} width={scale(20)} />
+                    {/* <DropDown height={scale(20)} width={scale(20)} /> */}
+                    <MaterialCommunityIcons name='chevron-down' size={scale(20)} />
                     {/* <Image source={require('../../../assets/icons/drop-down.png')} style={{resizeMode: "contain", width: scale(20), height: scale(20)}} /> */}
                 </View>
             </Pressable>
@@ -153,23 +148,23 @@ const SelectSheet = (props: Props)=> {
                     <View style={{backgroundColor: theme.primary.main, paddingHorizontal: searchMode ?  0 : scale(10), paddingTop: scale(StatusBar.currentHeight ? StatusBar.currentHeight + 10 : 35), paddingBottom: searchMode ? 0 : scale(10), justifyContent: "flex-end"}}>
                         {!searchMode ? (
                             <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-                                <IconButton onPress={toggleSheet} icon={<BackIcon height={24} width={24} />} />
+                                <IconButton onPress={toggleSheet} icon={<MaterialCommunityIcons size={scale(24)} />} />
                                 <View style={{paddingVertical: scale(5)}}>
                                     <BoldText size={16} title={props.title} color={theme.light} />
                                 </View>
-                                <IconButton onPress={()=>toggleSearchMode(!searchMode)} icon={<SearchIcon height={24} width={24} />} />
+                                <IconButton onPress={()=>toggleSearchMode(!searchMode)} icon={<MaterialCommunityIcons size={scale(24)} />} />
                             </View>
                         ) : (
                             <View style={{backgroundColor: theme.neutral[100], height: scale(55), flexDirection: "row", paddingLeft: scale(10),
                                 alignItems: "center"
                             }}>
-                                <SearchNeutralIcon height={24} width={24} style={{flex: 2, alignSelf: "center", marginRight: scale(5)}} />
+                                <MaterialCommunityIcons name="magnify" color={theme.neutral[300]} size={scale(24)} style={{flex: 2, alignSelf: "center", marginRight: scale(5)}} />
                                 <TextInput onChangeText = {search}
                                 autoFocus 
                                 placeholder="Type  to search" 
                                 style={{flex: 8}} 
                                 placeholderTextColor={theme.neutral.main} />
-                                <IconButton onPress={()=>toggleSearchMode(!searchMode)} icon={<CloseIcon height={24} width={24} style={{flex: 2, alignSelf: "center"}} />} />
+                                <IconButton onPress={()=>toggleSearchMode(!searchMode)} icon={<MaterialCommunityIcons name='close' height={24} width={24} style={{flex: 2, alignSelf: "center"}} />} />
                             </View>
                         )}
                     </View>

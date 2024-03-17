@@ -12,28 +12,31 @@ import Register from '../screens/Auth/Register/Register';
 import IconButton from '../components/Buttons/IconButton';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import ForgotPassword from '../screens/Auth/ForgotPassword/ForgotPassword';
+import ConfirmOtp from '../screens/Auth/ConfirmOtp/ConfirmOtp';
+import ResetPassword from '../screens/Auth/ForgotPassword/ResetPassword';
 
 const Stack = createStackNavigator();
 const LoggedOutStack = () => {
     const {IS_ANDROID, IS_IOS} = CONSTANTS;
-    const Transition = IS_ANDROID ? TransitionPresets.FadeFromBottomAndroid : IS_IOS ? TransitionPresets.SlideFromRightIOS : null
+    const Transition = TransitionPresets.SlideFromRightIOS
     const {theme} = useSelector((state: RootState) => state.appSetting);
-    IS_ANDROID ? StatusBar.setBackgroundColor('transparent', true) : null;
-    IS_ANDROID ? StatusBar.setTranslucent(true) : null;
-    IS_ANDROID ? StatusBar.setBarStyle('light-content') : null;
+    StatusBar.setTranslucent(false)
+    // IS_ANDROID ? StatusBar.setBackgroundColor('transparent', true) : null;
+    // IS_ANDROID ? StatusBar.setTranslucent(true) : null;
+    // IS_ANDROID ? StatusBar.setBarStyle('light-content') : null;
     return (
         <>
             <Stack.Navigator initialRouteName = "Onboarding" screenOptions={({ navigation }) => ({
                 ...Transition,
                 headerStyle: {
-                    backgroundColor: theme.primary.main,
-                    height: scale(80),
+                    backgroundColor: theme.light,
                 },
                 // presentation: 'transparentModal', 
                 contentStyle: { 
                     backgroundColor: 'white',
                 },
-                headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="arrow-left" height={scale(24)} width={scale(24)} />} />,
+                // headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="arrow-left" size={scale(24)} />} />,
+                headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
                 headerShadowVisible: false,
                 headerStatusBarHeight: 0,
                 headerLeftContainerStyle: {
@@ -43,7 +46,7 @@ const LoggedOutStack = () => {
                 headerTitleAlign: "center",
                 headerTintColor: theme.light,
                 headerTitleStyle: {
-                    fontFamily: 'Matter-Bold',
+                    fontFamily: 'CircularStd-Bold',
                     fontSize: scale(16),
                 },
                 headerTitleContainerStyle: {
@@ -53,16 +56,27 @@ const LoggedOutStack = () => {
             })}>
                 {/* available screens for logged out users */}
                 <Stack.Screen name="Onboarding" component={Onboarding as React.FC} options={{
-                    header: ()=> (null),
+                    // header: ()=> (null),
+                    headerLeft: ()=> null,
+                    headerLeftContainerStyle: {
+                        borderBottomWidth: 0
+                    }
                 }} />
                 <Stack.Screen name="Login" component={Login as React.FC} options={{
                     headerTitle: "Login",
+                    // headerLeft: ()=> null,
                 }} />
                 <Stack.Screen name="Register" component={Register as React.FC} options={{
                     headerTitle: "Register",
                 }} />
                 <Stack.Screen name="ForgotPassword" component={ForgotPassword as React.FC} options={{
-                    headerTitle: "Forgot Password?",
+                    headerTitle: "Forgot Password",
+                }} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword as React.FC} options={{
+                    headerTitle: "Reset Password",
+                }} />
+                <Stack.Screen name="ConfirmOtp" component={ConfirmOtp as React.FC} options={{
+                    headerTitle: "Confirm Otp",
                 }} />
             </Stack.Navigator>
         </>

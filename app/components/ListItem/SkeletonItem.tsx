@@ -3,7 +3,6 @@ import { View, Pressable, StyleSheet } from 'react-native';
 import scale from '../../utils/scale';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import ArrowRight from '../../../assets/icons/arrow-right.svg';
 import SkeletonLoader from '../SkeletonLoader/SkeletonLoader';
 
 // const {theme} = CONSTANTS;
@@ -12,8 +11,9 @@ const SkeletonItem: React.FC = () => {
     return (
         <Pressable 
             style={[styles.listItem, {
-                borderBottomColor: theme.light[400], 
-                backgroundColor: theme.neutral[100],
+                borderColor: theme.neutral[300], 
+                borderWidth: scale(1),
+                // backgroundColor: theme.neutral[100],
                 height: undefined,
             }]}
         >

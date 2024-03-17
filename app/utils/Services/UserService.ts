@@ -1,51 +1,36 @@
-// import {baseURL} from '../constants';
+import CONSTANTS from '../constants';
 import axios from 'axios';
 
-/** base url */
-const baseUrl = 'https://uat-opm-user-service.herokuapp.com/user';
+//base url
+const {baseUrl} = CONSTANTS;
+/** auth path */
+const path: string = 'user';
 
-/** business account path */
-const path = '/api/v1/business-account';
-
-const supportPath: string = '/api/v1/support';
-
-export const createBusinessInfo = async (body: Object, options?: any)=> {
-    const res = await axios.post(`${baseUrl}${path}/business`, body, options);
+/** get user info by id */
+export const getUser = async (uuid: string, options?: any)=> {
+    // console.log('SERVICE UUID', options)
+    const res = await axios.get(`${baseUrl}/${path}/${uuid}`, options);
     return res;
 }
 
-// upload image
-export const userDocument = async (uuid: string, docType: string, body: Object, options?: any)=> {
-    const res = await axios.post(`${baseUrl}${path}/document?userUuid=${uuid}&documentType=${docType}`, body, options);
+/** update user */
+export const updateUser = async (body: any, options?: any)=> {
+    const res = await axios.patch(`${baseUrl}/${path}/update`, body, options);
     return res;
 }
 
-// get business account
-export const getBusinessAcct = async (uuid: string, options?: any)=> {
-    const res = await axios.get(`${baseUrl}${path}/user-uuid/${uuid}`, options);
+export const getAppointments = async (uuid: string, options?: any)=> {
+    const res = await axios.get(`${baseUrl}/${path}/appointments/${uuid}`, options);
     return res;
 }
 
-/** update user info */
-export const updateUserInfo = async (body: Object, options?: any)=> {
-    const res = await axios.put(`${baseUrl}${path}/individual`, body, options);
+export const getTeam = async (userId: string, options?: any)=> {
+    const res = await axios.get(`${baseUrl}/${path}/team/${userId}`, options);
     return res;
 }
 
-/** update business info */
-export const updateBusinessInfo = async (body: Object, options?: any)=> {
-    const res = await axios.put(`${baseUrl}${path}/business`, body, options);
-    return res;
-}
-
-/** contact customer support */
-export const getSummariesForContactUs = async (options?: any)=> {
-    const res = await axios.get(`${baseUrl}${supportPath}/summaries`, options);
-    return res;
-}
-
-/** contact customer support */
-export const contactUs = async (body: Object, options?: any)=> {
-    const res = await axios.post(`${baseUrl}${supportPath}`, body, options);
+/** toggle availability */
+export const toggleAvailability = async (body: any, options?: any)=> {
+    const res = await axios.post(`${baseUrl}/${path}/availability/toggle`, body, options);
     return res;
 }

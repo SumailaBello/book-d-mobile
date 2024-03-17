@@ -4,17 +4,42 @@ import {Linking, Platform} from 'react-native';
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Clipboard from 'expo-clipboard';
 import Toast from 'react-native-root-toast';
-import { AlertConfig, InvoiceItemType } from './types';
+import { AlertConfig } from './types';
 import { shareAsync } from 'expo-sharing';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
-import * as FileSystem from 'expo-file-system';
 
+// returns masking string
+export const maskingString = (str: string, start: number, end: number) => {
+  if (!str || start < 0 || start >= str.length || end < 0 || end > str.length || start >= end) {
+     return str;
+  }
+  const maskLength = end - start;
+  const maskedStr = str.substring(0, start) + "*".repeat(maskLength) + str.substring(end);
+  return maskedStr;
+}
+
+export const validatePassword = (value: string)=> {
   // regex for pasword validity
-  export const lowerCase = /[a-z]/;
-  export const upperCase = /[A-Z]/;
-  export const numEx = /[0-9]/;
+  const lowerCase: RegExp = /[a-z]/;
+  const upperCase: RegExp = /[A-Z]/;
+  const numEx: RegExp = /[0-9]/;
+  if(lowerCase.test(value) && upperCase.test(value) && numEx.test(value) && value.length >=8) {
+    return {
+      valid: true,
+      message: '',
+    };
+  }
+  const errRes = {
+    valid: false,
+    message: !lowerCase.test(value) ? 'Password must contain a lowercase letter' 
+    : !upperCase.test(value) ? 'Password must contain an uppercase letter'
+    : !numEx.test(value) ? 'Password must contain a number'
+    : value.length < 8 ? 'Password must contain 8 characters' : ''
+  }
+  return errRes;
+}
 
 export const validateEmail = (email?: string | any) => {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -27,8 +52,8 @@ export const validatePhone = (number: string) => {
 
 export const errorHandler = (error: any)=> {
   const obj: AlertConfig = {
-    title: "Error",
-    message: error?.response?.data?.errors?.responseMessage || error?.response?.data?.responseMessage || error?.responseMessage || error?.response?.data?.error_description || error?.response?.data?.description?.message || error?.response?.data?.description || 'An error occured',
+    title: "Action Failed",
+    message: error?.response?.data?.message || 'An error occured',
     mode: "danger",
   }
   return obj
@@ -38,7 +63,7 @@ export const errorHandler = (error: any)=> {
 export const successHandler = (res: any)=> {
   const obj: AlertConfig = {
     title: "Done",
-    message: res?.message || res?.responseMessage || "Action successful",
+    message: res?.data?.message || "Action successful",
     mode: "success",
   }
   return obj

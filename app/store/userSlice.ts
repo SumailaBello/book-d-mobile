@@ -8,12 +8,6 @@ import { setToken } from '../utils/api';
 const initialState: UserObj = {
   /** data gotten from login endpoint */
   user: {},
-  /** data gotten from business info endpoiint */
-  businessAcct: {},
-  /** individual acount user info object filtered from business account info */
-  individualUser: {},
-  /** all wallets present in account profile */
-  wallets: [],
   notificationToken: "",
   newNotification: false,
   notifications: [],
@@ -25,43 +19,26 @@ export const userSlice = createSlice({
   reducers: {
     /**saves user object to global state used in auth endpoints */
     saveUser: (state, action: PayloadAction<any>) => {
-      console.log(action?.payload)
-      state.user = action?.payload;
+      console.log(action?.payload);
+      state.user = action?.payload?.user;
       /** sets token to request config */
-      setToken(action?.payload?.access_token);
-      const userObj = JSON.stringify(state.user);
-      console.log(userObj)
+      setToken(action?.payload?.token);
+      AsyncStorage.setItem('user', JSON.stringify(action?.payload.user));
+      AsyncStorage.setItem('token', action?.payload?.token);
     },
 
     /** reset user state on logout */
     resetUser: (state)=> {
       state.user = {};
       setToken('');
-      state.businessAcct = {};
-      state.individualUser = {};
       AsyncStorage.clear();
     },
 
     /** updates user state object without saving. Useful for value gotten from storage at app startup */
     updateUserState: (state, action: PayloadAction<any>) => {
       /** payload is expected to be an object that contains user key and token key */
-      state.user = action?.payload?.data;
-      /** sets token to request config */
-      setToken(action?.payload?.data.access_token);
-    },
-
-    saveBusiness: (state, action: PayloadAction<any>)=> {
-      console.log(action.payload)
-      state.businessAcct = action?.payload;
-      const accs:Array<any> = action?.payload.individualAccounts;
-      console.log("Individual accts: ", accs);
-      state.individualUser = accs.filter(acct => acct.uuid = state.user?.userUuid )[0] //first and only object in the array
-      console.log("individual user", state.individualUser)
-    },
-
-    saveWallets: (state, action: PayloadAction<any>)=> {
-      console.log(action.payload);
-      state.wallets = action?.payload;
+      state.user = action?.payload
+      AsyncStorage.setItem('user', JSON.stringify(action?.payload));
     },
 
     // sets notification token 
@@ -85,6 +62,6 @@ export const userSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { saveUser, resetUser, updateUserState, saveBusiness, saveWallets, setNotificationToken, setNewNotifications, setNotification} = userSlice.actions
+export const { saveUser, resetUser, updateUserState, setNotificationToken, setNewNotifications, setNotification} = userSlice.actions
 
 export default userSlice.reducer

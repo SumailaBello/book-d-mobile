@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, StatusBar, Platform, DeviceEventEmitter  } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, Theme } from '@react-navigation/native';
 // import Feather from 'react-native-vector-icons/Feather';
 // import CONSTANTS from '../utils/constants';
 import LoggedOutStack from '../Navigation/LoggedOutStack';
@@ -11,7 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 import {toggleLoggedIn, toggleReady}  from '../store/appSettings';
 import {toggleAlert}  from '../store/modalSlice';
-import {saveUser}  from '../store/userSlice';
+import {saveUser, updateUserState}  from '../store/userSlice';
 import { RootState } from '../store/store';
 import { View } from 'react-native-animatable';
 import * as Device from 'expo-device';
@@ -20,6 +20,7 @@ import { AlertConfig } from '../utils/types';
 import { setToken } from '../utils/api';
 import * as SecureStore from 'expo-secure-store';
 import Constants from 'expo-constants';
+import { DefaultTheme } from '@react-navigation/native';
 // import SideMenu from '../components/SideMenu/SideMenu';
 
 const BottomTabs = createBottomTabNavigator();
@@ -32,21 +33,33 @@ const MainApp: React.FC<Props> = props => {
     console.log(props);
     // const [isAppReady, setReady]: any = useState(false);
     // const [isLoggedIn, setLoggedIn]: any = useState(false);
+    const {theme} = useSelector((state: RootState) => state.appSetting);
     const {isLoggedIn, isAppReady} = useSelector((state: RootState) => state.appSetting);
     const dispatch = useDispatch();
-    
+
+    const NavTheme: Theme =  {
+        ...DefaultTheme,
+        colors: {
+            ...DefaultTheme.colors,
+            background: theme.light,
+            // border: 'black'
+            
+        },
+    }
 
     useEffect(() => {
         const prepare = async ()=> {
           try {
             // Keep the splash screen visible while we fetch resources
-            // const res : any = await SecureStore.getItemAsync('user');
-            const token : any = await SecureStore.getItemAsync('token');
-            // const res : any = await AsyncStorage.getItem('user');
-            // const token : any = await AsyncStorage.getItem('token');
-            console.log(token);
+            const res : any = await AsyncStorage.getItem('user');
+            const token : string | null = await AsyncStorage.getItem('token');
+            console.log('storage', res);
             if (token) {
+                const userObj = JSON.parse(res);
+                console.log('MAIN APP', userObj);
+                console.log('TOKEN', token);
                 setToken(token);
+                dispatch(updateUserState(userObj))
                 dispatch(toggleLoggedIn()); //true if user exists
             }
             else {
@@ -123,7 +136,7 @@ const MainApp: React.FC<Props> = props => {
             {isAppReady ? (
                 <>
                     {isLoggedIn ? (
-                        <NavigationContainer>
+                        <NavigationContainer theme={NavTheme}>
                             <LoggedInStack />
                         </NavigationContainer>
                         ) : ( 

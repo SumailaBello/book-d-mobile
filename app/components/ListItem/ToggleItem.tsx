@@ -2,12 +2,11 @@ import React from 'react';
 import { View, Pressable, StyleSheet, Switch } from 'react-native';
 // import { colors } from '../../Styles/Styles'
 import scale from '../../utils/scale';
-import { RegularText, MediumText, SemiBoldText } from '../Typography/Typography';
+import { RegularText, MediumText, SemiBoldText, BoldText } from '../Typography/Typography';
 import CONSTANTS from '../../utils/constants';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import Checkbox from '../Checkbox/Checkbox';
-import ArrowRight from '../../../assets/icons/arrow-right.svg';
 
 interface ListProps {
     /** title string */
@@ -51,8 +50,8 @@ const ToggleItem: React.FC<ListProps> = (props) => {
     return (
         <Pressable 
             style={[styles.listItem, {
-            borderBottomColor: props.borderColor ?? theme.light[400], 
-            backgroundColor: props.checked ? theme.primary[100] : theme.neutral[100],
+            borderColor: theme.neutral[200],
+            borderWidth: scale(1),
             height: props.height ?? undefined,
             opacity: props.disabled ? 0.5 : 1
             }]} 
@@ -64,7 +63,7 @@ const ToggleItem: React.FC<ListProps> = (props) => {
                     </View>
                 ) : (null)}
                 <View style={{flex: props.icon ? 9 : 11, paddingLeft: scale(5)}}>
-                    <SemiBoldText transform={props.textTransform} title={props.title} color={props.textColor ?? theme.neutral[300]} size={14} />
+                    <BoldText transform={props.textTransform} title={props.title} color={props.textColor ?? theme.neutral.main} size={14} />
                     {props.subtitle ? (
                         <RegularText size={12} title={props.subtitle} color={theme.neutral.main} lines={props.subtitleLines ?? 1} />
                     ) : (null)}

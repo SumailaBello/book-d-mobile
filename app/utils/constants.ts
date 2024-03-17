@@ -2,6 +2,8 @@ import {Dimensions, Platform} from 'react-native';
 import { Theme } from './types';
 
 const {height, width} = Dimensions.get('window');
+/** base url for API service */
+const baseUrl = 'https://bookd.onrender.com';
 const privacyPolicy = "https://www.optima.africa/privacy-policy";
 const termsOfUse = "https://www.optima.africa/terms-of-service";
 
@@ -84,14 +86,20 @@ const theme: Theme = {
     danger: {
       main: "#FF2D2D",
     },
+    secondary: {
+      main: '#f1b0da',
+      100: '#fcecf6',
+    },
     warning: {
       main: '#fec4b7',
+      100: '#fff3f0',
     },
     neutral: {
       main: "#808080",
-      100: "#F1F1F1",
+      100: "#f8f8f8",
+      200: "#F1F1F1",
       /** black with 10percent opacity */
-      200: "#E5E5E5",
+      300: "#E5E5E5",
     },
     light: "#FFFFFF",
     background: '#FFFFFF',
@@ -111,14 +119,20 @@ const theme: Theme = {
     danger: {
       main: "#FF2D2D",
     },
+    secondary: {
+      main: '#f1b0da',
+      100: '#fcecf6',
+    },
     warning: {
       main: '#fec4b7',
+      100: '#fff3f0',
     },
     neutral: {
       main: "#808080",
-      100: "#F1F1F1",
+      100: "#f8f8f8",
+      200: "#F1F1F1",
       /** black with 10percent opacity */
-      200: "#E5E5E5",
+      300: "#E5E5E5",
     },
     light: "#FFFFFF",
     background: '#141414',
@@ -137,6 +151,7 @@ const CONSTANTS =  {
   dateSortList,
   privacyPolicy,
   termsOfUse,
+  baseUrl
 };
 
 export default CONSTANTS

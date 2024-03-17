@@ -147,7 +147,7 @@ export const BlockText: FC<blockTextProps> = props => {
     }
     // const title = props.title;
     return (
-        <Text style={[{color: props.color ? props.color : theme.primary.main, textAlign: props.textAlign, fontSize: props.size ? fontScale(props.size) : fontScale(16), fontFamily: props.fontFamily ?? "Matter-Regular"}]} numberOfLines= {props.lines ? props.lines : lines}
+        <Text style={[{color: props.color ? props.color : theme.primary.main, textAlign: props.textAlign, fontSize: props.size ? fontScale(props.size) : fontScale(16), fontFamily: props.fontFamily ?? "CircularStd-Book"}]} numberOfLines= {props.lines ? props.lines : lines}
         onTextLayout={handleTextLayout}>{props.children}</Text>
     );
 };

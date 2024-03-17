@@ -43,7 +43,7 @@ const AlertModal = () => {
     >
       <Pressable style={styles.topView} onPress={closeModal}>
         <Animatable.View ref={ref => viewRef = ref} duration={300} animation={"slideInDown"} style={[styles.modalView, 
-          {backgroundColor: alert.mode === "success" ? theme.primary[300] : alert.mode === "danger" ? theme.danger.main : theme.neutral.main}]}>
+          {backgroundColor: alert.mode === "success" ? theme.success.main : alert.mode === "danger" ? theme.danger.main : theme.neutral.main}]}>
           <SemiBoldText title={alert.title ?? ""} color={theme.light} size={14} />
           <View style={{flexDirection: "row", justifyContent: "space-between", marginTop: scale(5)}}>
             <View style={{flex: 10}}>

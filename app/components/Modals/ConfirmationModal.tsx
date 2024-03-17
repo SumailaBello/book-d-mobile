@@ -1,5 +1,5 @@
-import React, { Component, useEffect } from 'react';
-import { View, Modal, StyleSheet, Dimensions, Pressable, StatusBar } from 'react-native';
+import React from 'react';
+import { View, Modal, StyleSheet, Dimensions } from 'react-native';
 import { Button } from '../Buttons/Button';
 import {RegularText, BoldText} from '../Typography/Typography';
 // import CONSTANTS from '../../utils/constants';
@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { toggleConfirmation } from '../../store/modalSlice';
 import scale from '../../utils/scale';
-import { AlertConfig, ConfirmationAlertConfig } from '../../utils/types';
+import { ConfirmationAlertConfig } from '../../utils/types';
 import { confirmationFunction } from '../../utils/utils';
 
 interface Props {
@@ -23,17 +23,9 @@ const ConfirmationModal: React.FC<Props> = (props: Props) => {
     const resetObj: ConfirmationAlertConfig = {
         title: "",
         message: "",
-        // callBack: null,
     }
 
-    // useEffect(() => {
-    //   alert(confirmationVisible)
-    // }, [confirmationVisible])
-    
-
     const proceed = ()=> {
-        // confirmationAlert.callBack ? eval(confirmationAlert.callBack) : null;
-        // console.log(confirmationAlert.callBack)
         confirmationFunction ? confirmationFunction() : null;
         setTimeout(() => {
             dispatch(toggleConfirmation(resetObj));
@@ -58,7 +50,7 @@ const ConfirmationModal: React.FC<Props> = (props: Props) => {
             >
                 <View style={[styles.centeredView]}>
                     <View style={styles.modalView}>
-                        <BoldText size={16} title={confirmationAlert.title || 'Confirmation'} color={theme.neutral[300]} />
+                        <BoldText size={16} title={confirmationAlert.title || 'Confirmation'} color={theme.primary.main} />
                         <View style={{marginTop: scale(10)}}>
                             <RegularText size={16} 
                                 title={confirmationAlert.message || 'Do you want to proceed?'} 
@@ -69,7 +61,7 @@ const ConfirmationModal: React.FC<Props> = (props: Props) => {
                         <View style={{flexDirection: 'row', marginTop: scale(20), width: "100%"}}>
                             <View style={{flex: 1, marginRight: scale(5)}}>
                                 <Button title="No" 
-                                    color={theme.neutral[100]} 
+                                    color={theme.neutral[300]} 
                                     // style = {[ {width: '50%', marginRight: 5}]}
                                     onPress = {close} 
                                     textColor={theme.neutral.main}
@@ -101,7 +93,7 @@ const styles = StyleSheet.create({
         //   marginTop: 22,
         height: screenHeight + scale(30),
         width: screenWidth,
-        padding: scale(10),
+        padding: scale(20),
         backgroundColor: 'rgba(0, 0, 0, 0.3)',
     },
     modalView: {

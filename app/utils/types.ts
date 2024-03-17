@@ -6,12 +6,6 @@ import { Screen, ScreenProps } from "react-native-screens";
 export interface UserObj {
     /** data gotten from login endpoint */
     user: any;
-    /**business information data gotten from business info endpoint */
-    businessAcct: any;
-    /** individual acount user info object filtered from business account info */
-    individualUser: any;
-    /** all wallets present in account profile */
-    wallets: Array<any>;
     notificationToken: string;
     newNotification: boolean;
     notifications: Array<any>;
@@ -27,7 +21,12 @@ interface Colors {
     success: {
         main: string;
     };
-    warning?: {
+    secondary: {
+        main: string;
+        100: string;
+        200?: string
+    }
+    warning: {
         main: string;
         100?: string;
     };
@@ -82,7 +81,7 @@ export interface LoaderConfig {
 
 export interface ModalSettings {
     loaderConfig: LoaderConfig;
-    isLoading: boolean;
+    loading: boolean;
     /** contains message and title for alert */
     alert: AlertConfig
     /** determines whether alert is visible */
@@ -112,210 +111,16 @@ export interface AppSettings {
     hideBalance: boolean;
 }
 
-export interface ReceiptItemType {
-    title: string,
-    description: string,
-    amount: string,
-    date: string,
-    type: 'debit' | 'credit',
-    status: 'successful' | "pending" | "failed",
+export interface TabIconType {
+    focused: boolean;
+    title: string;
+    iconName: any;
+    color: string;
+    size: number;
 }
 
-//invoice object gotten from get endpoints
-export interface InvoiceItemType {
-    id: number,
-    uuid: string,
-    businessUuid: string,
-    customer: {
-        id: number,
-        fullName: string,
-        email: string,
-        businessUuid: string,
-        uuid: string,
-        phoneNumber: string,
-        address: string,
-        state: string,
-        profilePicture: {
-            id: number,
-            documentName: string,
-            uuid: string,
-            storageId: string,
-            locationUrl: string,
-            documentType: 'E_COMMERCE_PRODUCT' | 'E_COMMERCE_CUSTOMER'
-        }
-    },
-    products: [
-        {
-            id: number,
-            uuid: string,
-            name: string,
-            productUuid: string,
-            description: string,
-            unitPrice: number,
-            quantity: number,
-            discount: {
-                discountAmount: number,
-                discountPercentage: number
-            }
-        }
-    ],
-    invoiceNumber: string,
-    currency: 'NAIRA',
-    totalPriceBeforeVat: number,
-    totalPriceAfterVat: number,
-    createdAt: string,
-    invoiceTimestamp: Date,
-    description: string,
-    vat: number,
-    saleMedium: 'PHYSICAL' | 'SOCIAL_MEDIA' | 'ONLINE_STORE',
-    paymentMethod: 'OPTIMA' | 'BANK_ACCOUNT' | 'CASH',
-    status: 'PAID' | 'UNPAID' | 'PARTLY_PAID',
-    discount: {
-        discountAmount: number,
-        discountPercentage: number
-    },
-    accountInfo: {
-        bankName: string,
-        accountNumber: string,
-        accountName: string
-    }
-}
-
-export interface BankType {
-    active: boolean;
-    code: string;
-    country: string;
-    currency: string;
-    longcode: string;
-    name: string
-    slug: string;
-}
-
-interface ProductImageType {
-    documentName: string,
-    storageId: string,
-    locationUrl: string,
-}
-export interface ProductType {
-    id: number,
-    name: string,
-    categoryUuid: string,
-    businessUuid: string,
-    quantity: number,
-    unitPrice: number,
-    productType: string,
-    productImages: Array<ProductImageType>,
-    link: string,
-    tags: Array<string>,
-    description?: string,
-    sku?: string,
-    variations: Array<any>
-}
-
-export interface ProductVariation {
-    id?: number,
-    name: string,
-    productUuid: string,
-    businessUuid: string,
-    quantity?: number,
-    unitPrice?: number,
-    sku?: string
-}
-
-// product object gotten from
-// export interface invoiceProductType {
-//     id: number,
-//     productUuid: string,
-//     reviewedPrice: number,
-//     name: string,
-//     quantity: number,
-// }
-
-export interface invoiceAccountInfo {
-    bankName: string,
-    accountNumber: string,
-    accountName: string,
-}
-
-export interface invoiceProduct {
-    id?: number,
-    productUuid: string,
-    unitPrice: number,
-    name: string,
-    quantity: number,
-    variationUuid?: string,
-    discount: {
-        discountAmount: number,
-        discountPercentage: number,
-      }
-}
-
-// used to create invoice
-export interface invoiceType {
-    // invoiceNumber: string,
-    businessUuid: string,
-    customerUuid: string,
-    id?: number,
-    products: Array<invoiceProduct>,
-    paymentMethod: "OPTIMA" | "BANK_ACCOUNT" | "CASH",
-    currency: "NAIRA",
-    customerPrefix?: string,
-    createdAt: string,
-    description: string,
-    saleMedium: "PHYSICAL" | "SOCIAL_MEDIA" | "ONLINE_STORE",
-    status: "PAID" | "UNPAID" | "PARTLY_PAID",
-    discount: {
-      discountAmount?: number,
-      discountPercentage?: number,
-    },
-    accountInfo?: invoiceAccountInfo,
-}
-
-export interface bankAccountType {
-    id?: number,
-    userIdentifier: string,
-    accountName: string,
-    accountNo: string,
-    bankName: string,
-    bankCode: string,
-    image?: string
-}
-
-export interface transactionType {
-    id: number,
-    walletId: string,
-    bankId: string,
-    title: string,
-    provider: string,
-    internalReference: string,
-    externalReference: string,
-    identifier: string,
-    type: string,
-    settledAmount: number,
-    transactionFee: number,
-    totalAmount: number,
-    providerFee: number,
-    balanceBefore: number,
-    balanceAfter: number,
-    status: 'PENDING' | 'SUCCESSFUL' | 'FAILED' | 'REQUERYING' | 'QUEUED_FOR_REQUERY_LATER' | 'UNKNOWN',
-    sessionId: string,
-    settlementId: string,
-    narration: string,
-    description: string,
-    transactionMeta: string,
-    providerMeta: string,
-    providerResponse: string,
-    txnTime: string,
-    timestamps: string,
-    parentTransactionId: string
-}
-
-export interface notificationType {
-    id: string,
-    email: string,
-    subject: string,
-    content: string,
-    dateCreated: string,
-    dateRead: string,
-    pushNotificationStatus: "SENT" | 'PENDING' | 'READ' | 'ERROR'
+export interface AppointmentItemType {
+    date: string;
+    title: string;
+    description: string;
 }

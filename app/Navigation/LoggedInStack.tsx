@@ -9,6 +9,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import CONSTANTS from '../utils/constants';
 import IconButton from '../components/Buttons/IconButton';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import Profile from '../screens/Profile/Profile';
+import Notifications from '../screens/Notifications/Notifications';
+import Sales from '../screens/Sales/Sales';
+import Messages from '../screens/Messages/Messages';
+import Team from '../screens/Team/Team';
 
 const Stack = createStackNavigator();
 // const LoggedInStack = (stackProps: StackScreenProps<any>) => {
@@ -18,7 +23,7 @@ const LoggedInStack = () => {
     // const Transition = IS_ANDROID ? TransitionPresets.FadeFromBottomAndroid : TransitionPresets.SlideFromRightIOS;
     const Transition = TransitionPresets.SlideFromRightIOS;
     IS_ANDROID ? StatusBar.setBackgroundColor(theme.light, true) : null;
-    IS_ANDROID ? StatusBar.setBarStyle("light-content") : StatusBar.setBarStyle("dark-content");
+    IS_ANDROID ? StatusBar.setBarStyle("dark-content") : StatusBar.setBarStyle("dark-content");
     IS_ANDROID ? StatusBar.setTranslucent(false) : null;
     const screenOptions: StackNavigationOptions = {
         headerTitleAlign: 'center',
@@ -29,36 +34,60 @@ const LoggedInStack = () => {
         <Stack.Navigator initialRouteName = "HomeTabs" screenOptions={({ navigation }: any) => ({
             // ...TransitionPresets.FadeFromBottomAndroid,
             ...Transition,
-            headerTitleAlign: "center",
-            headerTitleStyle: {
-                fontFamily: "Poppins-SemiBold",
-                paddingBottom: IS_IOS ? scale(30) : undefined,
-                fontSize: fontScale(18)
-                // marginTop: "auto"
-            },
-            headerStyle: {
-                elevation: 0,
-                height: IS_IOS ? scale(80) : undefined,
-            },
+            // headerTitleAlign: "center",
+            // headerTitleStyle: {
+            //     fontFamily: "CircularStd-Bold",
+            //     paddingBottom: IS_IOS ? scale(30) : undefined,
+            //     fontSize: fontScale(18)
+            //     // marginTop: "auto"
+            // },
+            // headerStyle: {
+            //     elevation: 0,
+            //     height: IS_IOS ? scale(80) : undefined,
+            // },
+            // headerLeftContainerStyle: {
+            //     paddingBottom: scale(10),
+            //     paddingLeft: IS_IOS ? scale(10) : undefined,
+            // },
+            headerLeft: ()=> <IconButton onPress={navigation.goBack} icon={<MaterialCommunityIcons name="chevron-left" size={scale(24)} />} />,
+            // headerTitleContainerStyle: {paddingTop: scale(20)}
+            headerShadowVisible: false,
+            headerStatusBarHeight: 0,
             headerLeftContainerStyle: {
-                paddingBottom: scale(10),
-                paddingLeft: IS_IOS ? scale(10) : undefined,
+                justifyContent: "flex-end",
+                // paddingLeft: scale(10)
             },
-            headerLeft: ()=> 
-            <View style={{paddingLeft: IS_IOS ? scale(10) : scale(20), paddingTop: IS_IOS ? scale(0) : scale(20)}}>
-                <IconButton onPress={()=> navigation.goBack()}
-                    icon={<MaterialCommunityIcons name="arrow-left" width={scale(20)} height={scale(20)} />} />
-            </View>,
-            headerTitleContainerStyle: {paddingTop: scale(20)}
+            headerTitleAlign: "center",
+            // headerTintColor: theme.light,
+            headerTitleStyle: {
+                fontFamily: 'CircularStd-Bold',
+                fontSize: scale(16),
+            },
+            headerTitleContainerStyle: {
+                justifyContent: "flex-end",
+                padding: scale(10)
+            },
             })}
         >
             {/* available screens for logged in users */}
             <Stack.Screen name="HomeTabs" component={HomeTabs as React.FC} options={{
                 header: ()=> null,
             }} />
-            {/* <Stack.Screen name="AddMoney" component={AddMoney as React.FC} options={{
-                headerTitle: "Add Money",
-            }} /> */}
+            <Stack.Screen name="Profile" component={Profile as React.FC} options={{
+                // headerTitle: "Add Money",
+            }} />
+            <Stack.Screen name="Notifications" component={Notifications as React.FC} options={{
+                // headerTitle: "Add Money",
+            }} />
+            <Stack.Screen name="Sales" component={Sales as React.FC} options={{
+                headerTitle: "Recent Sales",
+            }} />
+            <Stack.Screen name="Messages" component={Messages as React.FC} options={{
+                headerTitle: "Messages",
+            }} />
+            <Stack.Screen name="Team" component={Team as React.FC} options={{
+                headerTitle: "Team Members",
+            }} />
         </Stack.Navigator>
     )
 }
